@@ -1,0 +1,184 @@
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage[makeroom]{cancel}
+%%%% math color boxç
+\usepackage{xcolor}
+\usepackage{soul}
+\newcommand{\mathcolorbox}[2]{\colorbox{#1}{$\displaystyle #2$}}
+\newcommand{\hlfancy}[2]{\sethlcolor{#1}\hl{#2}}
+%%%% end math color box
+\usepackage{tikz}
+\usetikzlibrary{quotes,angles}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{listingsutf8}
+\usepackage{booktabs}
+\usepackage[acronym]{glossaries}
+\usepackage{smartdiagram}
+\usesmartdiagramlibrary{additions}
+\usepackage{imakeidx}
+\makeindex[columns=3, title=Index]
+\usepackage{wrapfig}
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage[edges]{forest}
+\usetikzlibrary{arrows.meta}
+\usepackage{rotating}
+\usepackage{etoolbox}
+\usepackage{courier}
+\usepackage{lmodern}
+%shade begin
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\colorlet{shadecolor}{blue!10}
+%shade end
+\usepackage{makeidx}
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{lscape}
+\usepackage{chngcntr}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{multicol,caption}
+\usepackage{multirow}
+\usepackage{lipsum}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage[T1]{fontenc}
+\usepackage{titlesec}
+\usepackage{url}
+% \usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\raggedbottom
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{7pt}
+\usepackage{geometry}
+\geometry{
+    a4paper, 
+    total={170mm,247mm}, 
+    left=20mm, 
+    top=30mm
+}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,}
+\usepackage{placeins} %FloatBarrier
+\usepackage[nottoc]{tocbibind}
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\usepackage{fancyhdr}
+
+\usepackage{chemfig}
+\usepackage{graphicx}
+\usepackage[version=3]{mhchem}
+
+\setlength{\floatsep}{15pt}
+
+% Unidades tiempo
+\newcommand{\second}{\mathrm{s}}
+\newcommand{\hour}{\mathrm{h}}
+\newcommand{\minute}{\mathrm{min}}
+% Unidades temperatura
+\newcommand{\celsius}{\mathrm{^{\circ} C}}
+\newcommand{\fahrenheit}{\mathrm{^{\circ} F}}
+\newcommand{\kelvin}{\mathrm{K}}
+% Unidades distancia
+\newcommand{\meter}{\mathrm{m}}
+\newcommand{\cmeter}{\mathrm{cm}}
+\newcommand{\mmeter}{\mathrm{mm}}
+% Unidades area
+\newcommand{\sqmeter}{\mathrm{m^2}}
+% Unidades volumen
+\newcommand{\cbmeter}{\mathrm{m^3}}
+\newcommand{\liter}{\mathrm{L}}
+\newcommand{\milliliter}{\mathrm{mL}}
+\newcommand{\mliter}{\mathrm{mL}}
+% Unidades energia
+\newcommand{\joule}{\mathrm{J}}
+\newcommand{\watt}{\mathrm{W}}
+% Unidades de masa y cantidad\newcommand{\gram}{\mathrm{g}}
+\newcommand{\kg}{\mathrm{kg}}
+\newcommand{\mol}{\mathrm{mol}}
+% Unidades presion
+\newcommand{\atm}{\mathrm{atm}}
+\newcommand{\pascal}{\mathrm{Pa}}
+\newcommand{\mpascal}{\mathrm{MPa}}
+\newcommand{\presbar}{\mathrm{bar}}
+\newcommand{\presmbar}{\mathrm{mbar}}
+\newcommand{\mmhg}{\mathrm{mmHg}}
+% Unidades eléctricas
+\newcommand{\hertz}{\mathrm{Hz}}
+\newcommand{\coulomb}{\mathrm{C}}
+\newcommand{\ampere}{\mathrm{A}}
+\newcommand{\volt}{\mathrm{V}}
+\newcommand{\ohm}{\mathrm{\Omega}}
+\newcommand{\faraday}{\mathrm{F}}
+% Unidades de fuerza
+\newcommand{\newton}{\mathrm{N}}
+% Múltiplos
+\newcommand{\giga}{\mathrm{G}}
+\newcommand{\mega}{\mathrm{M}}
+\newcommand{\kilo}{\mathrm{k}}
+\newcommand{\centi}{\mathrm{c}}
+\newcommand{\milli}{\mathrm{m}}
+\newcommand{\micro}{\mathrm{\mu}}
+\newcommand{\nano}{\mathrm{n}}
+
+% Renewcommands
+\captionsetup{labelfont=bf}
+\captionsetup{labelsep=space}
+% Newcommands
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\wt}{\mathrm{wt{\mkern-4mu}\%}}
+\newcommand{\vol}{\mathrm{vol{\mkern-4mu}\%}}
+\newcommand*{\intentionalblankpage}{%
+\vspace*{\fill}
+{\centering Esta página ha sido intencionalmente dejada en blanco\par}
+\vspace{\fill}}
+\makeatletter
+\renewcommand*{\cleardoublepage}{\clearpage\if@twoside \ifodd\c@page\else
+\blankpage
+\thispagestyle{empty}
+\clearpage
+\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\titleformat{\section}{\normalfont\fontsize{15}{15}\bfseries}{\thesection}{1em}{}
+\setlength{\columnsep}{30pt}
+
+\newcommand\textequal{\rule[.5ex]{6pt}{0.4pt}\llap{\rule[.9ex]{6pt}{0.4pt}}}
+
+\usepackage{makecell}
+\usepackage{siunitx}
+\usepackage{tikz}   %TikZ is required for this to work.  Make sure this exists before the next line
+
+% \usepackage{3dplot} %requires 3dplot.sty to be in same directory, or in your LaTeX installation
+
+%\usepackage[active,tightpage]{preview}  %generates a tightly fitting border around the work
+%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{2mm}
+
+%\DeclareCaptionFormat{myformat}{#1#2#3\hrulefill}
+%\captionsetup[figure]{format=myformat}
+\titleformat{\chapter}[block]
+  {\normalfont\huge\bfseries}{\thechapter.}{1em}{\LARGE}
+\titlespacing*{\chapter}{0pt}{-19pt}{0pt}
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+%%Pàg següent capítol en mateixa pàgina:
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
