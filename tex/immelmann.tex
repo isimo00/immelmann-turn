@@ -1,12 +1,37 @@
-\documentclass[11pt, twoside]{report}
+\documentclass[10pt, twoside]{report}
 \input{preamble}
 \title{Mecànica de vol - GrETA}
 \author{Irene Simó}
 \date{QT 2021-22}
 \pagestyle{fancy}
-\lhead{Mecànica de vol - Irene Simó} 
+\lhead{Immelmann turn: A flight mechanics study - Irene Simó} 
 \rhead{Page \thepage\ of \pageref*{LastPage}}
+\cfoot{}
 
-\begin{document}
-	hola
+\begin{document}\thispagestyle{empty} 
+	\begin{center}
+	\LARGE \textbf{Immelmann turn}\\
+	\Large A flight mechanics study
+	
+	\vspace{1cm}	
+	\hrule
+	\end{center}
+	
+	\normalsize
+	\begin{multicols}{2}
+	\vspace*{-2cm}
+	\tableofcontents
+	\section*{Introduction}
+	\addcontentsline{toc}{section}{Introduction}
+	The Immelmann turn, named after German World War I flying ace Max Immelmann, is an an  aerobatic maneuver that results in level-flight of the aircraft in the opposite direction and higher altitude.
+	
+	
+	\lipsum[1-2]
+	
+	\clearpage
+	\section*{Maneouver study and results}
+	\addcontentsline{toc}{section}{Introduction}
+	\section*{Other data}
+	\addcontentsline{toc}{section}{Introduction}
+	\end{multicols}
 \end{document}

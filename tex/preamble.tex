@@ -1,28 +1,41 @@
+%\input{./1settings/mcode.sty}
+%\input{./1settings/3dplot.sty}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
+%\usepackage[spanish, es-noquoting]{babel}
+% es-noquoting para que funcionen las felchas en tikz (https://tex.stackexchange.com/questions/48761/arrows-with-tikz-package)
+\usepackage[T1]{fontenc}
+%\usepackage[scaled]{helvet} %Tipo de letra helvetica
+\renewcommand{\familydefault}{\sfdefault} %setear letras sansSerif
+\usepackage[cm]{sfmath} %Letra sin serifas en las ecuaciones
+\everymath={\sf} %setear en todos los entornos mat SS font
+\usepackage{tgheros}
 \usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage[makeroom]{cancel}
-%%%% math color boxç
-\usepackage{xcolor}
-\usepackage{soul}
-\newcommand{\mathcolorbox}[2]{\colorbox{#1}{$\displaystyle #2$}}
-\newcommand{\hlfancy}[2]{\sethlcolor{#1}\hl{#2}}
-%%%% end math color box
+\usepackage{cancel}
 \usepackage{tikz}
+\usepackage{smartdiagram}
+\usesmartdiagramlibrary{additions}
+%%%BEGIN SHADED
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\definecolor{verdeoscuro}{rgb}{0.0, 0.5, 0.0}
+\definecolor{azulmohr}{rgb}{0.0, 0.53, 0.74}
+\definecolor{rojomohr}{rgb}{0.8, 0.31, 0.36}
+\definecolor{verdemohr}{rgb}{0.24, 0.7, 0.44}
+\colorlet{shadecolor}{blue!10}
+%%%%END SHADED
 \usetikzlibrary{quotes,angles}
 \usetikzlibrary{positioning,shapes,shadows,arrows}
 \usepackage{lastpage}
 \usepackage{listings}
 \usepackage{listingsutf8}
 \usepackage{booktabs}
-\usepackage[acronym]{glossaries}
-\usepackage{smartdiagram}
-\usesmartdiagramlibrary{additions}
+\usepackage{glossaries}
+
 \usepackage{imakeidx}
-\makeindex[columns=3, title=Index]
+\makeindex[columns=3, title=Termes Clau\\, 
+           options= -s example.ist]
 \usepackage{wrapfig}
 \usepackage{amsmath} 
 \usepackage{amssymb}
@@ -32,14 +45,7 @@
 \usetikzlibrary{arrows.meta}
 \usepackage{rotating}
 \usepackage{etoolbox}
-\usepackage{courier}
-\usepackage{lmodern}
-%shade begin
-\usepackage{framed}
-\usepackage[most]{tcolorbox}
-\usepackage{xcolor}
-\colorlet{shadecolor}{blue!10}
-%shade end
+%\usepackage{courier}
 \usepackage{makeidx}
 \usepackage{caption}
 \usepackage{tabularx}
@@ -52,15 +58,11 @@
 \usepackage{multicol,caption}
 \usepackage{multirow}
 \usepackage{lipsum}
-\usepackage{titlesec}
 \usepackage{tocloft}
-\usepackage[T1]{fontenc}
 \usepackage{titlesec}
 \usepackage{url}
-% \usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
-\raggedbottom
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{7pt}
+\setlength{\parskip}{18pt}
 \usepackage{geometry}
 \geometry{
     a4paper, 
@@ -157,13 +159,14 @@
 \titleformat{\section}{\normalfont\fontsize{15}{15}\bfseries}{\thesection}{1em}{}
 \setlength{\columnsep}{30pt}
 
+\renewcommand{\cfttoctitlefont}{\normalfont\fontsize{15}{15}\bfseries}
+
 \newcommand\textequal{\rule[.5ex]{6pt}{0.4pt}\llap{\rule[.9ex]{6pt}{0.4pt}}}
 
 \usepackage{makecell}
 \usepackage{siunitx}
 \usepackage{tikz}   %TikZ is required for this to work.  Make sure this exists before the next line
 
-% \usepackage{3dplot} %requires 3dplot.sty to be in same directory, or in your LaTeX installation
 
 %\usepackage[active,tightpage]{preview}  %generates a tightly fitting border around the work
 %\PreviewEnvironment{tikzpicture}
