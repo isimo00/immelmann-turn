@@ -1,9 +1,8 @@
 % Irene Simo Munoz
 % Immelmann turn
 clear all; close; clc
-
+paramEvolution
 %% Symbolic definitions
-% Definicions per variables de les equacions
 T        = sym('Thrust', 'real');
 W        = sym('Weight', 'real'); % Escalar, mòdul
 Cl       = sym('Cl', 'real');
@@ -34,7 +33,6 @@ k        = sym('k', 'real');
 cond_vector1 = [gammadot, 0; % rectinineo
                gamma, -gamma% descenso
                Q, 0;        % vuelo simétrico
-               %mu, 0;       % planeador en vuelo rectilíneo
                T, 0;        % planeador
                xi, 0;       % plano vertical
                xidot, 0];   % plano vertical
