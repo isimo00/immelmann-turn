@@ -1,7 +1,10 @@
 function paramEvolution
-% Evolution of different parameters
-%   Detailed explanation goes here
-%mu_val = @(t) pi;
+% Author: Irene Simo Munoz
+% Date: Fall 2021
+% Evolution of different parameters trhoughtout time
+%   This function requires no input and produces no output to the global
+%   code. It creates a figure with the resulting evolution.
+
 syms gammaEV(t)
 syms muEV(t)
 gammaEV(t) = piecewise(0<t<0.75, 4/3*pi*t, 0.75<t, pi);

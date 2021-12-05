@@ -1,7 +1,11 @@
-% Irene Simo Munoz
-% Immelmann turn
+% Author: Irene Simo Munoz
+% Date: Fall 2021
+% Project: Immelmann turn flight mechanics study
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all; close; clc
+%% 
 paramEvolution
+
 %% Symbolic definitions
 T        = sym('Thrust', 'real');
 W        = sym('Weight', 'real'); % Escalar, mòdul
@@ -28,19 +32,11 @@ Cd_0     = sym('Cd_0', 'real');
 k        = sym('k', 'real');
 
 %% Maneuver study
-% Equacions cinemàtiques i dinàmiques
-% Condicions:
-cond_vector1 = [gammadot, 0; % rectinineo
-               gamma, -gamma% descenso
-               Q, 0;        % vuelo simétrico
-               T, 0;        % planeador
-               xi, 0;       % plano vertical
-               xidot, 0];   % plano vertical
-
+% Cinematic and dynamic equations
 % Equations
-eq1 = T*cos(epsilon)*cos(nu)-D-m*g*sin(gamma)-m*Vdot; % ==0
-eq2 = T*cos(epsilon)*sin(nu)-Q+m*g*cos(gamma)*sin(mu)+m*V*(gammadot*sin(mu)-xidot*cos(gamma)*cos(mu));
-eq3 = -T*sin(epsilon)-L+m*g*cos(gamma)*cos(mu) + m*V*(gammadot*cos(mu)+xidot*cos(gamma)*sin(mu));
+eq1 = T*cos(epsilon)*cos(nu)-D-W*sin(gamma)-W/g*Vdot; % ==0
+eq2 = T*cos(epsilon)*sin(nu)-Q+W*cos(gamma)*sin(mu)+W/g*V*(gammadot*sin(mu)-xidot*cos(gamma)*cos(mu));
+eq3 = -T*sin(epsilon)-L+W*cos(gamma)*cos(mu) + W/g*V*(gammadot*cos(mu)+xidot*cos(gamma)*sin(mu));
 
 xe_dot = sym('xe_dot','real');
 ye_dot = sym('ye_dot','real');
@@ -55,14 +51,17 @@ eq6 = ze_dot == -V*sin(gamma);
 % eq_polar = Cd == Cd_0+kCl^2;
 % eq_drag = subs(eq_drag, Cd, eq_polar);
 
-eqv1 = [eq1; eq2; eq3; eq4; eq5; eq6];
+% Conditions:
+cond_vector1 = [gammadot, 0; % rectinineo
+               gamma, -gamma% descenso
+               Q, 0;        % vuelo simétrico
+               T, 0;        % planeador
+               xi, 0;       % plano vertical
+               xidot, 0];   % plano vertical
+
+eqv = [eq1; eq2; eq3; eq4; eq5; eq6];
 % Substitució condicions en les equacions
-for i=1:length(eqv1)
-    for j=1:length(cond_vector1)
-        eqv1(i)=subs(eqv1(i), [cond_vector1(j, 1) m*g m], [cond_vector1(j, 2) W W/g]);
-    end
-end
-[eqv1(2), eqv1(3)]=wind2horizon(eqv1(2), eqv1(3), mu); % eixos vent a horitzó
+[eqv1] = studyThisConditions(eqv,cond_vector1, mu);
 %   Imposicio natural de mu=0 per planejador en vol rectilini (o pla
 %   vertical?)
 musol = solve(eqv1(2)==0, mu);
