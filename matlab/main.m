@@ -61,7 +61,7 @@ cond_vector1 = [gammadot, 0; % rectinineo
 
 eqv = [eq1; eq2; eq3; eq4; eq5; eq6];
 % Substitució condicions en les equacions
-[eqv1] = studyThisConditions(eqv,cond_vector1, mu);
+[eqv1] = studyTheseConditions(eqv,cond_vector1, mu);
 %   Imposicio natural de mu=0 per planejador en vol rectilini (o pla
 %   vertical?)
 musol = solve(eqv1(2)==0, mu);

@@ -1,4 +1,4 @@
-function [eqv] = studyThisConditions(eqv,cond_vector, mu)
+function [eqv] = studyTheseConditions(eqv,cond_vector, mu)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 for i=1:length(eqv)
