@@ -2,9 +2,73 @@
 \addcontentsline{toc}{section}{Maneouver Computations}
 The motion equations follow:
 
+\begin{equation*}
+	\begin{cases}
+	T\cos(\epsilon)\cos(\nu) - D -mg\sin\gamma-m\dot{V}=0\\
+	T\cos(\epsilon)\sin(\nu) - Q+mg\cos\gamma\sin\mu+mV(\dot{\gamma}\sin\mu-\dot{\Xi}\cos\gamma\cos\mu)=0\\
+	-T\sin\epsilon-L+mg\cos\gamma\cos\mu+mV(\dot{\gamma}\cos\mu-\dot{\Xi}\cos\gamma\sin\mu)=0\\
+	\dot{x}_e=V\cos\gamma\cos\Xi\\
+	\dot{y}_e=V\cos\gamma\sin\Xi\\
+	\dot{x}_e=-V\sin\gamma
+	\end{cases}
+\end{equation*}
+
+And for each of the phases that compose the maneuver, they can be simplified by substituting the flight conditions.
+
+\subsection*{First phases - cruise}
+\addcontentsline{toc}{subsection}{Maneouver Computations}
 \begin{equation}
 	\begin{cases}
-	T\cos(\epsilon)\cos(\nu) - D -mg-m\dot{V}=0\\
-	T\cos(\epsilon)\sin(\nu) - Q=0\\
-		\end{cases}
+		T - D -mg-m\dot{V}=0\\
+		0=0\\
+		-L+mg=0\\
+		\dot{x}_e=V\\
+		\dot{y}_e=0\\
+		\dot{x}_e=0
+	\end{cases}
 \end{equation}
+Total degrees of freedom are:
+
+\subsection*{Second phase - semicircle}
+\addcontentsline{toc}{subsection}{Maneouver Computations}
+\begin{equation}
+	\begin{cases}
+		T - D -mg\sin\gamma-m\dot{V}=0\\
+		0=0\\
+		-L+mg\cos\gamma+mV\dot{\gamma}=0\\
+		\dot{x}_e=V\cos\gamma\\
+		\dot{y}_e=0\\
+		\dot{x}_e=-V\sin\gamma
+	\end{cases}
+\label{eq:semicircle}
+\end{equation}
+Total degrees of freedom are:
+
+
+\subsection*{Third phase - turnaround}
+\addcontentsline{toc}{subsection}{Maneouver Computations}
+\begin{equation}
+	\begin{cases}
+		T - D -m\dot{V}=0\\
+		0=0\\
+		-L-mg=0\\
+		\dot{x}_e=V\\
+		\dot{y}_e=0\\
+		\dot{x}_e=0
+	\end{cases}
+\end{equation}
+Total degrees of freedom are:
+
+\subsection*{Forth phase - cruise}
+\addcontentsline{toc}{subsection}{Maneouver Computations}
+\begin{equation}
+	\begin{cases}
+		T - D -mg-m\dot{V}=0\\
+		0=0\\
+		-L+mg=0\\
+		\dot{x}_e=V\\
+		\dot{y}_e=0\\
+		\dot{x}_e=0
+	\end{cases}
+\end{equation}
+Total degrees of freedom are:

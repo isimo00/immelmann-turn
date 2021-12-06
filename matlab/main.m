@@ -52,24 +52,90 @@ eq6 = ze_dot == -V*sin(gamma);
 % eq_drag = subs(eq_drag, Cd, eq_polar);
 
 % Conditions:
-cond_vector1 = [gammadot, 0; % rectinineo
-               gamma, -gamma% descenso
-               Q, 0;        % vuelo simétrico
-               T, 0;        % planeador
-               xi, 0;       % plano vertical
-               xidot, 0];   % plano vertical
 
 eqv = [eq1; eq2; eq3; eq4; eq5; eq6];
 % Substitució condicions en les equacions
+%% First phase- cruise
+cond_vector1 = [Q, 0;       % vuelo simétrico
+               nu, 0;       % vuelo simétrico
+               gamma, 0     % cruise
+               gammadot, 0; % cruise
+               mu, 0;       % levelled flight
+               epsilon, 0;  % thrust parallel to x wind
+               xi, 0;       % plano vertical
+               xidot, 0];   % plano vertical
+% cond_vector1a = [Q, 0;       % vuelo simétrico
+%                nu, 0;       % vuelo simétrico
+%                gamma, 0        % initial straig flight
+%                mu, 0;
+%                epsilon, 0;  % thrust parallel to x wind
+%                xi, 0;       % plano vertical
+%                xidot, 0];   % plano vertical
+% cond_vector1b = [Q, 0;       % vuelo simétrico
+%                nu, 0;       % vuelo simétrico
+%                mu, 0;
+%                gamma, pi/2;
+%                epsilon, 0;   % thrust parallel to x wind
+%                xi, 0;       % plano vertical
+%                xidot, 0];   % plano vertical
+% 
+% cond_vector1c = [Q, 0;       % vuelo simétrico
+%                nu, 0;       % vuelo simétrico
+%                mu, pi;       % inverted flight
+%                gamma, pi;
+%                epsilon, 0;  % thrust parallel to x wind
+%                xi, 0;       % plano vertical
+%                xidot, 0];   % plano vertical
 [eqv1] = studyTheseConditions(eqv,cond_vector1, mu);
-%   Imposicio natural de mu=0 per planejador en vol rectilini (o pla
-%   vertical?)
-musol = solve(eqv1(2)==0, mu);
-eqv1(2) = subs(eqv1(2), mu, musol);
-eqv1(3) = subs(eqv1(3), mu, musol);
-clearvars musol
 fprintf('APARTAT 1:\n');
 disp(eqv1);
+
+% Evolution
+
+%% Second phase - semicircle
+cond_vector2 = [Q, 0;       % vuelo simétrico
+               nu, 0;       % vuelo simétrico
+               mu, 0;       % levelled flight
+               epsilon, 0;  % thrust parallel to x wind
+               xi, 0;       % plano vertical
+               xidot, 0];   % plano vertical
+[eqv2] = studyTheseConditions(eqv,cond_vector2, mu);
+fprintf('APARTAT 2:\n');
+disp(eqv2);
+
+% lift_centripletal= isolate(eqv2(3)==0, L)
+% syms R
+% syms Cl
+% R = @(gamma) 2*m*V^2/(2*m*g*cos(gamma)+rho*S*V^2*Cl);
+
+
+
+%% Third phase - turnaround
+cond_vector3 = [Q, 0;       % vuelo simétrico
+               nu, 0;       % vuelo simétrico
+               mu, -pi;       % levelled flight
+               gamma, 0;
+               gammadot, 0;
+               epsilon, 0;  % thrust parallel to x wind
+               xi, 0;       % plano vertical
+               xidot, 0];   % plano vertical
+
+[eqv3] = studyTheseConditions(eqv,cond_vector3, mu);
+fprintf('APARTAT 3:\n');
+disp(eqv3)
+%% Forth phase - cruise
+cond_vector4 = [Q, 0;       % vuelo simétrico
+               nu, 0;       % vuelo simétrico
+               mu, 0;       % levelled flight
+               epsilon, pi;  % thrust parallel to x wind
+               gamma, 0;
+               gammadot, 0;
+               xi, 0;       % plano vertical
+               xidot, 0];   % plano vertical
+[eqv4] = studyTheseConditions(eqv,cond_vector4, mu);
+fprintf('APARTAT 4:\n');
+disp(eqv4)
+%%
 
 dV = sym('dV', 'real');
 dt = sym('dt', 'real');
