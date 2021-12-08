@@ -113,7 +113,6 @@ disp(eqv2);
 %% Third phase - turnaround
 cond_vector3 = [Q, 0;       % vuelo simétrico
                nu, 0;       % vuelo simétrico
-               mu, -pi;       % levelled flight
                gamma, 0;
                gammadot, 0;
                epsilon, 0;  % thrust parallel to x wind
@@ -135,11 +134,12 @@ cond_vector4 = [Q, 0;       % vuelo simétrico
 [eqv4] = studyTheseConditions(eqv,cond_vector4, mu);
 fprintf('APARTAT 4:\n');
 disp(eqv4)
-%%
 
+trejectory(rhs(eqv2(4)), rhs(eqv2(6)));
+%% Integratons
 dV = sym('dV', 'real');
 dt = sym('dt', 'real');
-eq = solve(eqv1(1), Vdot);
+eq = solve(eqv2(1), Vdot);
 eq = eq == dV/dt;
 eq = subs(eq, [D], [1/2*rho*V^2*S*(Cd_0+k*Cl^2)]);
 LSol = solve(eqv1(3), L); % Warning solucions
@@ -148,9 +148,9 @@ int_temps1 = solve(eq, dt);
 disp('dt=');
 pretty(int_temps1)
 fprintf('Entre V_basica i V_2.\n');
-% temps1 = int(a, V); temps1 = subs(temps1, dV, 1);
-% temps1 = simplify(expand(temps1));
-% pretty(temps1)
+temps1 = int(int_temps1, V); temps1 = subs(temps1, dV, 1);
+temps1 = simplify(expand(temps1));
+pretty(temps1)
 disp('~~~~~~~~~~~~~~~~~~~~~~~~');
 
 dh = sym('dh', 'real');
