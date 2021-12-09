@@ -44,4 +44,12 @@ As a result, the radius can be writen as a function of the angle of attack. By o
 As the plane must describe a semicircle, the radius must be constant.
 
 Plot x, z with time y despues en plano (ver trayectoria).
-\includegraphics[width=\linewidth]{../matlab/trajectory.pdf}
+We can consider the maneuver coordinates:
+\begin{align*}
+	\dot{x}_e=&V\cos\gamma&&&	x_e=&Vt\cos\gamma \\
+	\dot{y}_e=&0& \rightarrow&&	y_e=&0\\
+	\dot{x}_e=&-V\sin\gamma&&&z_e=&-Vt\sin\gamma
+\end{align*}
+
+If we take both V (controlled by the gas control lever) and $\gamma$ 
+\includegraphics[width=\linewidth]{../matlab/trajectory.png}

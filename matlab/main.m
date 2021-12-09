@@ -135,31 +135,33 @@ cond_vector4 = [Q, 0;       % vuelo simétrico
 fprintf('APARTAT 4:\n');
 disp(eqv4)
 
-trejectory(rhs(eqv2(4)), rhs(eqv2(6)));
 %% Integratons
-dV = sym('dV', 'real');
-dt = sym('dt', 'real');
-eq = solve(eqv2(1), Vdot);
-eq = eq == dV/dt;
-eq = subs(eq, [D], [1/2*rho*V^2*S*(Cd_0+k*Cl^2)]);
-LSol = solve(eqv1(3), L); % Warning solucions
-eq = subs(eq, [Cl], [LSol/(0.5*rho*V^2*S)]);
-int_temps1 = solve(eq, dt);
-disp('dt=');
-pretty(int_temps1)
-fprintf('Entre V_basica i V_2.\n');
-temps1 = int(int_temps1, V); temps1 = subs(temps1, dV, 1);
-temps1 = simplify(expand(temps1));
-pretty(temps1)
-disp('~~~~~~~~~~~~~~~~~~~~~~~~');
-
-dh = sym('dh', 'real');
-eq = lhs(eq) == -dV/dh*rhs(eqv1(6));
-eq = subs(eq, [dh/dt], [-rhs(eqv1(6))]);
-int_altura = solve(eq, dh);
-disp('dh=')
-pretty(int_altura);
-fprintf('Entre V_basica i V_2.\n');
-clearvars eq
+% dV = sym('dV', 'real');
+% dt = sym('dt', 'real');
+% eq = solve(eqv2(1), Vdot);
+% eq = eq == dV/dt;
+% eq = subs(eq, [D], [1/2*rho*V^2*S*(Cd_0+k*Cl^2)]);
+% LSol = solve(eqv1(3), L); % Warning solucions
+% eq = subs(eq, [Cl], [LSol/(0.5*rho*V^2*S)]);
+% int_temps1 = solve(eq, dt);
+% disp('dt=');
+% pretty(int_temps1)
+% fprintf('Entre V_basica i V_2.\n');
+% temps1 = int(int_temps1, V); temps1 = subs(temps1, dV, 1);
+% temps1 = simplify(expand(temps1));
+% pretty(temps1)
+% disp('~~~~~~~~~~~~~~~~~~~~~~~~');
+% 
+% dh = sym('dh', 'real');
+% eq = lhs(eq) == -dV/dh*rhs(eqv1(6));
+% eq = subs(eq, [dh/dt], [-rhs(eqv1(6))]);
+% int_altura = solve(eq, dh);
+% disp('dh=')
+% pretty(int_altura);
+% fprintf('Entre V_basica i V_2.\n');
+% clearvars eq
 
 fprintf('-----------------------\n-----------------------\n-----------------------\n');
+
+%% Trajectory
+plot_trajectory;
