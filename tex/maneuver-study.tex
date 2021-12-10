@@ -6,7 +6,12 @@ Evaluate L, D, V, $\gamma$, z, x
 
 Taking the first equation of each of the phases' systems we can operate to integrate the velocity through time. For the most generic case:
 \begin{align*}
-	0=&T - D -mg\sin\gamma-m\frac{\partial V}{\partial t}\\
+	\begin{cases}
+	\frac{\partial V}{\partial t}=&\frac{1}{m}\left(T - D -mg\sin\gamma\right)\\
+	\frac{\partial \gamma}{\partial t}=&\frac{1}{mV}\left(L-mg\cos\gamma\right)
+	\end{cases}
+\end{align*}
+\begin{align*}
 	dt =& \frac{m}{T - D -mg\sin\gamma} dV\\
 	\int dt= & \int \frac{m}{T - D -mg\sin\gamma} dV
 	\intertext{Subsituting drag's definition,}

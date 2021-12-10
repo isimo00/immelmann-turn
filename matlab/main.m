@@ -151,7 +151,7 @@ disp(eqv4)
 % temps1 = simplify(expand(temps1));
 % pretty(temps1)
 % disp('~~~~~~~~~~~~~~~~~~~~~~~~');
-% 
+
 % dh = sym('dh', 'real');
 % eq = lhs(eq) == -dV/dh*rhs(eqv1(6));
 % eq = subs(eq, [dh/dt], [-rhs(eqv1(6))]);
