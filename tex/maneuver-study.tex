@@ -1,5 +1,23 @@
 \section*{Maneouver study}
 \addcontentsline{toc}{section}{Maneouver study}
+The higher the velocity is, the bigger the radius - this is, the greater the increase of altitude - given that the wing's flaps cannot deflect enough nor can support as much force to reduce the radius as to the same menauver for a lower velocity.
+
+Note that the centripetal force follows:
+\[
+F=\frac{mV^2}{R}
+\]
+Where \textit{m}, \textit{V} and \textit{R} are the aircraft's mass (in kg), velocity (in m/s) and radius (in m) respectively. \\
+
+The only angles affected are gamma $\gamma$ and mu $\mu$ if performed flawlessly. The former is the angle formed between the \textit{x} axis of the horizontal set and the \textit{x} axis of the wind set, while the latter is the one formed between the \textit{y} axis of the same sets. Note that for the whole maneuver the body set remains consistent with the wind set.\\
+Figure \ref{fig:paramEvolution} shows how these change in the different phases of the Immelmann turn\\
+
+\includegraphics[width=\linewidth]{../matlab/paramEvolution.jpg}
+\captionof{figure}{Angles evolution over time}
+\label{fig:paramEvolution}
+\vspace{0.5cm}
+
+Note that for $\gamma$ the evolution is perfectly defined, as the increment of said angle needs to be positive in order to increase the flight altitude. Conversely, for $\mu$ the pilot could choose to rotate in the opposite direction thus changing $\mu$ from 0 to $-\pi$ instead - note that $\pi$ and $-\pi$ are equivalent -, and the result would be virtually the same.\\
+Furthermore, in order to describe a perfect semicircle the angular speed $\dot{\gamma}$ needs to remain constant. This results in the necessary condition of gamma's evolution to be a straight slope. For $\mu$, however, the pilot could also perform the roll at non-constant rotating speed without this having an impact on the maneuver performance. This would be reflected as a curve on mu's temporal evolution, instead of a straight line.
 
 \subsection{Evolution throughout time}
 Evaluate L, D, V, $\gamma$, z, x
@@ -33,6 +51,7 @@ The three force configurations during the maneuver correspond to the free body d
 %	\captionof{subfigure}{Angles evolution over time}
 	\label{fig:free-body-3}
 	\vspace{0.5cm}
+	\captionof{figure}{Free body diagrams during the semiloop. Own elaboration.}\vspace{0.25cm}
 %\end{minipage}
 
 Note that at all times the lift behaves as the centripetal force, thus indicating that both the velocity and radius limitations to perform the Immelmann turn are inherent to the wing design and its maximum and minimum lift generation.\\
