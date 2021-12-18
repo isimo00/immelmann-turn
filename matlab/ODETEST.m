@@ -1,52 +1,65 @@
 clear all; clc;
-% V0 = 70;
-% syms alpha(t) V(t) x(t) T(t) g S Cl(t) Cd(t) rho m
-% eqs = [T(t)- 1/(2)*rho*S*V(t)^2*Cd*alpha(t) == diff(V(t),t),
-%        m*g - 1/2*rho*S*V(t)^2*Cl*alpha(t) == 0,
-%        diff(x(t), t)==V(t)];
-% vars = [alpha(t) V(t) x(t)];
-% [eqs, vars] = reduceDifferentialOrder(eqs, vars); % cAL?
-% [M,F] = massMatrixForm(eqs,vars);
-% M = odeFunction(M,vars, 'sparse', true);
-% F = odeFunction(F,vars,T(t), g, S, Cl(t), Cd(t), rho , m)
-% m = 1e3;
-% g = 9.81;
-% S = 100;
-% Cl = @(t) 0.12*t+0.33; % https://en.wikipedia.org/wiki/ENAER_T-35_Pillán
-% Cd = @(t) 0.01+0.1*Cl(t)^2; % http://airfoiltools.com/airfoil/details?airfoil=naca652415-il
-% rho = 1.225;
-% T = @(t) 1.5e3+t*0.01;
-% F = @(t,Y) F(t,Y,T(t),m, g, S, Cl(t), Cd(t), rho);
-% t0 = 0;
-% % y0 = [-r(t0)*sin(0.1); r(t0)*cos(0.1)];
-% y0 = [0; V0; 0];
-% yp0 = [0; 0; 0];
-% opt = odeset('mass',M,'InitialSlope',yp0);
-% ode15s(F, [t0, 1], y0, opt)
-% xlabel('Time')
-% legend('VSol','\alpha', 'x(t)','Location','best')
+V0 = 16.5892;
+R=6;
+tf = R/V0 *pi;
+syms V(t) gamma(t) x(t) z(t) T(t) g S Cl(t) Cd(t) alpha rho m
+eqs = [T(t) - 1/2*rho*S*V(t)^2*Cd(t)*alpha - m*g*sin(gamma(t)) - 1e3*diff(V(t), t)==0,
 
-syms x(t) y(t) z(t) T(t) b(t) c(t) S rho alpha m g
-eqs = [T(t)- 1/2*rho*S*c(t)*x(t)^2*alpha - m*g*sin(y(t)) - diff(x(t), t)==0,
-       cos(y(t)) - diff(y(t), t)== b(t)*x(t)^2,
-       diff(x(t), t)==z(t)*cos(y(t))];
-vars = [x(t) y(t) z(t)];
+       diff(x(t), t)==V(t)*cos(gamma(t)),
+       diff(z(t), t)==-V(t)*sin(gamma(t))];
+vars = [V(t) x(t) z(t)];
 [eqs, vars] = reduceDifferentialOrder(eqs, vars); % cAL?
 [M,F] = massMatrixForm(eqs,vars);
 M = odeFunction(M,vars, 'sparse', true);
-F = odeFunction(F,vars, T(t), b(t), c(t), rho, S, alpha, m, g);
-T = @(t) 1.5e3+t*0.01;
-b = @(t) 0.12*t+0.33;
-c = @(t) 0.01+0.1*b(t)^2;
-alpha =0.3;
-rho=1.225;
-S=100;
+F = odeFunction(F,vars, gamma(t), T(t), g, S, Cl(t), Cd(t), rho , m, alpha);
+gamma = @(t) V0/R*t+(pi-V0/R*tf);
 m = 1e3;
-g=9.81;
-F = @(t,Y) F(t,Y, T(t), b(t), c(t), rho, S, alpha, m, g);
+g = 9.81;
+S = 50;
+alpha = 0.3;
+Cl = @(t) 0.12*t+0.33; % https://en.wikipedia.org/wiki/ENAER_T-35_Pillán
+Cd = @(t) 0.01+0.1*Cl(t)^2; % http://airfoiltools.com/airfoil/details?airfoil=naca652415-il
+rho = 1.225;
+T = @(t) 1.5e3+cos(t)*0.01;
+F = @(t,Y) F(t,Y, gamma(t), T(t),m, g, S, Cl(t), Cd(t), rho, alpha);
 t0 = 0;
 % y0 = [-r(t0)*sin(0.1); r(t0)*cos(0.1)];
-y0 = [1; 0; 0];
-yp0 = [0; 1; 0];
+y0 = [V0; 18.2108329349584; 0];
+yp0 = [0; V0*cos(gamma(t0)); -V0*sin(gamma(t0))];
 opt = odeset('mass',M,'InitialSlope',yp0);
-ode15s(F, [t0, 0.5], y0, opt);
+[t2, sol2]= ode15s(F, [t0, tf], y0, opt);
+figure()
+plot(t2, sol2(:,1)); hold on
+plot(t2, sol2(:,2)); hold on
+plot(t2, sol2(:,3));
+xlabel('Time')
+legend('VSol','x(t)','-z(t)','Location','best')
+
+figure()
+plot(t2, sol2(:,1)); hold on
+[Vfit_coff] = polyfit(t2, sol2(:,1), 7);
+P = poly2sym(Vfit_coff, t);
+fplot(P);
+xlim([0 tf]);
+
+
+figure()
+Cl = 0.12*t+0.33;
+L = 1/2*rho*S*P^2*Cl*alpha;
+fplot(L)
+xlim([0 tf]);
+ylabel('Lift [N]')
+xlabel('Time')
+
+figure()
+Cd = 0.01+0.1*Cl^2;
+D = 1/2*rho*S*P^2*Cd*alpha;
+fplot(D)
+xlim([0 tf]);
+ylabel('Drag [N]')
+xlabel('Time')
+
+figure()
+plot(sol2(:, 2), sol2(:, 3))
+ylabel('-z(t)')
+xlabel('x(t)')
