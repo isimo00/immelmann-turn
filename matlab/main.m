@@ -5,6 +5,8 @@
 clear all; close; clc
 %% 
 fontSize = 20;
+Radius
+set(groot,'defaultLineLineWidth',2)
 paramEvolution
 
 %% Symbolic definitions
@@ -25,6 +27,7 @@ gamma    = sym('gamma', 'real');
 gammadot = sym('gammadot', 'real');
 mu       = sym('mu', 'real');
 g        = sym('g', 'real');
+alpha    = sym('alpha', 'real');
 
 rho      = sym('density', 'real');
 S        = sym('Surface', 'real');  
@@ -70,7 +73,7 @@ fprintf('APARTAT 1:\n');
 disp(eqv1);
 
 % Evolution
-ODEtram1
+ODEtram1(g, S, rho, m, alpha)
 
 %% Second phase - semicircle
 cond_vector2 = [Q, 0;       % vuelo simétrico

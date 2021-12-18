@@ -1,7 +1,6 @@
-function ODEtram1
-clearvars Surface alpha rho m
+function ODEtram1(g, Surf, rho, m, alpha)
 V0 = 25;
-syms V(t) x(t) z(t) T(t) g Surf Cl(t) Cd(t) alpha rho m
+syms V(t) x(t) z(t) T(t) Cl(t) Cd(t)
 eqs = [m*g - 1/2*rho*Surf*V(t)^2*Cl*alpha == 0,
        diff(x(t), t)==V(t)
        diff(z(t), t)==-0];
@@ -10,11 +9,11 @@ vars = [V(t) x(t) z(t)];
 [M,F] = massMatrixForm(eqs,vars);
 M = odeFunction(M,vars, 'sparse', true);
 F = odeFunction(F,vars,T(t), g, Surf, Cl(t), Cd(t), rho , m, alpha);
-m = 1e3;
+m = 1.3e3;
 g = 9.81;
-Surf = 100;
+Surf = 13.69;
 alpha = 0.3;
-Cl = @(t) 0.12*t+0.33; % https://en.wikipedia.org/wiki/ENAER_T-35_Pillán
+Cl = @(t) 0.12*alpha+0.33; % https://en.wikipedia.org/wiki/ENAER_T-35_Pillán
 Cd = @(t) 0.01+0.1*Cl(t)^2; % http://airfoiltools.com/airfoil/details?airfoil=naca652415-il
 rho = 1.225;
 T = @(t) 1.5e3;
@@ -44,28 +43,28 @@ title('Square root for phase 1')
 figure()
 plot(t1, sol1(:,1)); hold on;
 [Vfit_coff] = polyfit(t1, sol1(:,1), 2);
-P = poly2sym(Vfit_coff, t);
-fplot(P);
-xlabel('Convergence')
+Vfit = poly2sym(Vfit_coff, t);
+fplot(Vfit);
+ylabel('Velocity [m/s]')
+xlabel('Time [s]')
+title('Convergence')
 xlim([0 1]);
 
 figure()
-[Vfit_coff] = polyfit(sol1(:,2), sol1(:,1), 7);
-P = poly2sym(Vfit_coff, t);
-Cl = 0.12*t+0.33;
-L = 1/2*rho*Surf*P^2*Cl*alpha;
-fplot(L)
+Cl = 0.12;
+L = 1/2*rho*Surf*Vfit^2*Cl*alpha;
+fplot(L, 'LineWidth',2)
 xlim([0 1]);
 ylabel('Lift [N]')
-xlabel('Time')
+xlabel('Time [s]')
 
 figure()
 Cd = 0.01+0.1*Cl^2;
-D = 1/2*rho*Surf*P^2*Cd*alpha;
-fplot(D)
+D = 1/2*rho*Surf*Vfit^2*Cd*alpha;
+fplot(D, 'LineWidth',2)
 xlim([0 1]);
 ylabel('Drag [N]')
-xlabel('Time')
+xlabel('Time [s]')
 
 figure()
 plot(sol1(:, 2), sol1(:, 3))

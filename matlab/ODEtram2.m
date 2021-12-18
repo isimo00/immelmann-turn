@@ -14,9 +14,9 @@ vars = [V(t) x(t) z(t)];
 M = odeFunction(M,vars, 'sparse', true);
 F = odeFunction(F,vars, gamma(t), T(t), g, Surf, Cl(t), Cd(t), rho , m, alpha);
 gamma = @(t) V0/R*t+(pi-V0/R*tf);
-m = 1e3;
+m = 1.3e3;
 g = 9.81;
-Surf = 50;
+Surf = 13.69;
 alpha = 0.3;
 Cl = @(t) 0.12*alpha+0.33; % https://en.wikipedia.org/wiki/ENAER_T-35_Pillán
 Cd = @(t) 0.01+0.1*Cl(t)^2; % http://airfoiltools.com/airfoil/details?airfoil=naca652415-il

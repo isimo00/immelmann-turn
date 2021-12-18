@@ -19,7 +19,7 @@ Figure \ref{fig:paramEvolution} shows how these change in the different phases o
 Note that for $\gamma$ the evolution is perfectly defined, as the increment of said angle needs to be positive in order to increase the flight altitude. Conversely, for $\mu$ the pilot could choose to rotate in the opposite direction thus changing $\mu$ from 0 to $-\pi$ instead - note that $\pi$ and $-\pi$ are equivalent -, and the result would be virtually the same.\\
 Furthermore, in order to describe a perfect semicircle the angular speed $\dot{\gamma}$ needs to remain constant. This results in the necessary condition of gamma's evolution to be a straight slope. For $\mu$, however, the pilot could also perform the roll at non-constant rotating speed without this having an impact on the maneuver performance. This would be reflected as a curve on mu's temporal evolution, instead of a straight line.
 
-For the following computations, some values will be needed in order to numerically solve the Ordinal Differential Equation systems. The ENAERT T-35 Pillán, a Chilean military small aircraft and its data \cite{jane1969jane} as reference values.\\
+For the following computations, some values will be needed in order to numerically solve the Ordinal Differential Equation systems. The ENAERT T-35 Pillán, a Chilean military small aircraft and its data \cite{jane1969jane} have been taken as references.\\
 
 \begin{center}
 	\includegraphics[width=0.9\linewidth]{figures/pillan}
@@ -27,9 +27,28 @@ For the following computations, some values will be needed in order to numerical
 	\captionof{figure}{ENAERT T-35 Pillán. Extracted from \cite{defensa.com_2018}}\vspace{0.25cm}
 \end{center}
 
-\subsection{Evolution throughout time}
+The used information is:
+
+\begin{center}
+\begin{tabular}{|l|l||l|l|}\hline
+	 & Value &   & Value\\ \hline \hline
+	Mass & 1.300 kg& Wingspan & 8.84 m\\ \hline
+	Airfoil & 63$_3$-414 & Wing area & 13.69 m$^2$ \\ \hline
+	Stall s. & &  Cruise s. &\\ \hline
+	Thrust &224 kW & Air den. & 1.225 kg/m$^3$ \\ \hline
+	\multicolumn{4}{|c|}{$C_L=12\alpha+0.33$}\\ \hline	
+\end{tabular}
+\end{center}
+
+\subsection*{Evolution throughout time}
+For the totality of the maneuver, the fixated parameters are the gas control lever ($\pi$) and the elevator ($\alpha$), which are set as constants at 1.5 kN and 0.3 rad respectively. From the remaining variables, the position coordinates evolution ($\Dot{x}$ and $\Dot{z}$) are always left as dependant in order to be solved by the ODE solver. With the obtained results, the trajectory is plot - see the following section Trajectory analysis, where both of them are studied in moer depth -.
+
+For the first and last phases, both cruise flight, the remaining variable (not counting $\Dot{x}$ and $\Dot{z}$) is velocity (V).\\
 Evaluate L, D, V, $\gamma$, z, x
 
+\subsubsection*{Cruise flight}
+
+\subsubsection*{Half loop}
 Taking the first equation of each of the phases' systems we can operate to integrate the velocity through time. For the most generic case:
 \begin{align*}
 	\begin{cases}
@@ -44,8 +63,6 @@ Taking the first equation of each of the phases' systems we can operate to integ
 	= & \int \frac{m}{T - \frac{1}{2}\rho S V^2 (C_{D_0}+kC_L^2) -mg\sin\gamma} dV
 \end{align*}
 
-
-\subsection{Trajectory analysis} 
 The three force configurations during the maneuver correspond to the free body diagrams at stages 1, 2 and 3 (see Figure \ref{fig:immelmann-overview}). \vspace{0.5cm}
 
 %\begin{minipage}{\textwidth}
@@ -67,7 +84,7 @@ AS the motion will be circular, the normal and tangential accelerations will fol
 \begin{align*}
 	a_n=&\frac{V^2}{R}=V\dot{\gamma}=\dot{\gamma}^2R&a_t=V^2R
 \end{align*}
-As a result, the radius can be writen as a function of the angle of attack. By operating with the third equation of system number \ref{eq:semicircle}, which is in wind system of reference, very convenient as is also polar system:
+As a result, the radius can be writen as a function of the angle of attack. By operating with the third equation of system number \ref{eq:semicircle}, which is in wind system of reference, very convenient as is also polar set of axis:
 \begin{align*}
 	L=&m\left(\frac{V^2}{R}+g\cos(\gamma)\right)\\
 	\frac{1}{2}\rho S V^2 C_L(\alpha)=&m\left(\frac{V^2}{R}+g\cos(\gamma)\right)\\
@@ -75,13 +92,27 @@ As a result, the radius can be writen as a function of the angle of attack. By o
 \end{align*}
 As the plane must describe a semicircle, the radius must be constant.
 
-Plot x, z with time y despues en plano (ver trayectoria).
+\begin{center}
+	\includegraphics[width=\linewidth]{../matlab/radius.png}
+	\vspace{0.5cm}
+	\captionof{figure}{Radius dependance on V and $\alpha$t. Own elaboration.}\vspace{0.25cm}
+\end{center}
+
+If we take both V (controlled by the gas control lever) and $\gamma$ 
+\subsubsection*{Roll}
+
+\subsection*{Trajectory analysis} 
+The expected result of the trajectory is portrayed in the following image:
+
+\begin{center}
+	\includegraphics[width=\linewidth]{../matlab/trajectory.png}
+	\vspace{0.5cm}
+	\captionof{figure}{Expected trajectory output. Own elaboration.}\vspace{0.25cm}
+\end{center}
+
 We can consider the maneuver coordinates:
 \begin{align*}
 	\dot{x}_e=&V\cos\gamma&&&	x_e=&Vt\cos\gamma \\
 	\dot{y}_e=&0& \rightarrow&&	y_e=&0\\
 	\dot{x}_e=&-V\sin\gamma&&&z_e=&-Vt\sin\gamma
 \end{align*}
-
-If we take both V (controlled by the gas control lever) and $\gamma$ 
-\includegraphics[width=\linewidth]{../matlab/trajectory.png}
