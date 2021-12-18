@@ -1,23 +1,24 @@
-clear all; clc;
+function ODEtram1
+clearvars Surface alpha rho m
 V0 = 25;
-syms V(t) x(t) z(t) T(t) g S Cl(t) Cd(t) alpha rho m
-eqs = [m*g - 1/2*rho*S*V(t)^2*Cl*alpha == 0,
+syms V(t) x(t) z(t) T(t) g Surf Cl(t) Cd(t) alpha rho m
+eqs = [m*g - 1/2*rho*Surf*V(t)^2*Cl*alpha == 0,
        diff(x(t), t)==V(t)
        diff(z(t), t)==-0];
 vars = [V(t) x(t) z(t)];
 [eqs, vars] = reduceDifferentialOrder(eqs, vars); % cAL?
 [M,F] = massMatrixForm(eqs,vars);
 M = odeFunction(M,vars, 'sparse', true);
-F = odeFunction(F,vars,T(t), g, S, Cl(t), Cd(t), rho , m, alpha);
+F = odeFunction(F,vars,T(t), g, Surf, Cl(t), Cd(t), rho , m, alpha);
 m = 1e3;
 g = 9.81;
-S = 100;
+Surf = 100;
 alpha = 0.3;
 Cl = @(t) 0.12*t+0.33; % https://en.wikipedia.org/wiki/ENAER_T-35_Pillán
 Cd = @(t) 0.01+0.1*Cl(t)^2; % http://airfoiltools.com/airfoil/details?airfoil=naca652415-il
 rho = 1.225;
 T = @(t) 1.5e3;
-F = @(t,Y) F(t,Y,T(t),m, g, S, Cl(t), Cd(t), rho, alpha);
+F = @(t,Y) F(t,Y,T(t),m, g, Surf, Cl(t), Cd(t), rho, alpha);
 t0 = 0;
 % y0 = [-r(t0)*sin(0.1); r(t0)*cos(0.1)];
 y0 = [V0; 0; 0];
@@ -30,9 +31,19 @@ plot(t1, sol1(:,2));
 xlabel('Time')
 legend('VSol', 'x(t)','Location','best')
 
+top =9;
+for i=1:top
+    [Vfit_coff, S] = polyfit(t1, sol1(:,1), i);
+    Svec(i)=sum(abs(S.R(:, i)));
+    normr(i) = S.normr;
+end
+figure(); yyaxis left; plot(1:top, Svec); hold on; yyaxis right; plot(1:top, normr);
+legend('$\Sum$ S', '|R^2|','Location','best', 'interpreter','latex')
+title('Square root for phase 1')
+
 figure()
 plot(t1, sol1(:,1)); hold on;
-[Vfit_coff] = polyfit(t1, sol1(:,1), 7);
+[Vfit_coff] = polyfit(t1, sol1(:,1), 2);
 P = poly2sym(Vfit_coff, t);
 fplot(P);
 xlabel('Convergence')
@@ -42,7 +53,7 @@ figure()
 [Vfit_coff] = polyfit(sol1(:,2), sol1(:,1), 7);
 P = poly2sym(Vfit_coff, t);
 Cl = 0.12*t+0.33;
-L = 1/2*rho*S*P^2*Cl*alpha;
+L = 1/2*rho*Surf*P^2*Cl*alpha;
 fplot(L)
 xlim([0 1]);
 ylabel('Lift [N]')
@@ -50,7 +61,7 @@ xlabel('Time')
 
 figure()
 Cd = 0.01+0.1*Cl^2;
-D = 1/2*rho*S*P^2*Cd*alpha;
+D = 1/2*rho*Surf*P^2*Cd*alpha;
 fplot(D)
 xlim([0 1]);
 ylabel('Drag [N]')
@@ -60,3 +71,4 @@ figure()
 plot(sol1(:, 2), sol1(:, 3))
 ylabel('-z(t)')
 xlabel('x(t)')
+end

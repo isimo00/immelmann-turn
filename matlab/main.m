@@ -4,6 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all; close; clc
 %% 
+fontSize = 20;
 paramEvolution
 
 %% Symbolic definitions
@@ -64,33 +65,12 @@ cond_vector1 = [Q, 0;       % vuelo simétrico
                epsilon, 0;  % thrust parallel to x wind
                xi, 0;       % plano vertical
                xidot, 0];   % plano vertical
-% cond_vector1a = [Q, 0;       % vuelo simétrico
-%                nu, 0;       % vuelo simétrico
-%                gamma, 0        % initial straig flight
-%                mu, 0;
-%                epsilon, 0;  % thrust parallel to x wind
-%                xi, 0;       % plano vertical
-%                xidot, 0];   % plano vertical
-% cond_vector1b = [Q, 0;       % vuelo simétrico
-%                nu, 0;       % vuelo simétrico
-%                mu, 0;
-%                gamma, pi/2;
-%                epsilon, 0;   % thrust parallel to x wind
-%                xi, 0;       % plano vertical
-%                xidot, 0];   % plano vertical
-% 
-% cond_vector1c = [Q, 0;       % vuelo simétrico
-%                nu, 0;       % vuelo simétrico
-%                mu, pi;       % inverted flight
-%                gamma, pi;
-%                epsilon, 0;  % thrust parallel to x wind
-%                xi, 0;       % plano vertical
-%                xidot, 0];   % plano vertical
 [eqv1] = studyTheseConditions(eqv,cond_vector1, mu);
 fprintf('APARTAT 1:\n');
 disp(eqv1);
 
 % Evolution
+ODEtram1
 
 %% Second phase - semicircle
 cond_vector2 = [Q, 0;       % vuelo simétrico

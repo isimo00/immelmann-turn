@@ -1,0 +1,5 @@
+\section*{Appendix: Curve fitting}
+In order to plot the evolution of both Lift and Drag for each phase, the computated velocity - solved from each respective ODE system - has been fitted from the resultant set of data points into a curve.\\
+For this, the native \texttt{polyfit} and \texttt{poly2sym} \textsc{matlab} functions have ben employed. 
+
+To correctly fit a set of points into a curve and avoid overfitting the polynomial (thus dealing with excessive oscillations and Runge's phenomemenon among others), the lienar Least Squares Method (LLS) has been used. The following plots show the square root sum and the norm of the squared regression value for each phase's velocity fit.
