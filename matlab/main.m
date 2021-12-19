@@ -3,10 +3,11 @@
 % Project: Immelmann turn flight mechanics study
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all; close; clc
-%% 
-fontSize = 20;
+%% Extra computations
 set(groot,'defaultLineLineWidth',2)
 paramEvolution
+plot_trajectory;
+Radius
 
 %% Symbolic definitions
 T        = sym('Thrust', 'real');
@@ -68,11 +69,8 @@ cond_vector1 = [Q, 0;       % vuelo simétrico
                xi, 0;       % plano vertical
                xidot, 0];   % plano vertical
 [eqv1] = studyTheseConditions(eqv,cond_vector1, mu);
-fprintf('APARTAT 1:\n');
+fprintf('PHASE 1:\n');
 disp(eqv1);
-
-% Evolution
-ODEtram1(g, S, rho, m, alpha);
 
 %% Second phase - semicircle
 cond_vector2 = [Q, 0;       % vuelo simétrico
@@ -82,15 +80,8 @@ cond_vector2 = [Q, 0;       % vuelo simétrico
                xi, 0;       % plano vertical
                xidot, 0];   % plano vertical
 [eqv2] = studyTheseConditions(eqv,cond_vector2, mu);
-fprintf('APARTAT 2:\n');
+fprintf('PHASE 2:\n');
 disp(eqv2);
-
-% lift_centripletal= isolate(eqv2(3)==0, L)
-% syms R
-% syms Cl
-% R = @(gamma) 2*m*V^2/(2*m*g*cos(gamma)+rho*S*V^2*Cl);
-
-
 
 %% Third phase - turnaround
 cond_vector3 = [Q, 0;       % vuelo simétrico
@@ -102,7 +93,7 @@ cond_vector3 = [Q, 0;       % vuelo simétrico
                xidot, 0];   % plano vertical
 
 [eqv3] = studyTheseConditions(eqv,cond_vector3, mu);
-fprintf('APARTAT 3:\n');
+fprintf('PHASE 3:\n');
 disp(eqv3)
 %% Forth phase - cruise
 cond_vector4 = [Q, 0;       % vuelo simétrico
@@ -114,36 +105,23 @@ cond_vector4 = [Q, 0;       % vuelo simétrico
                xi, 0;       % plano vertical
                xidot, 0];   % plano vertical
 [eqv4] = studyTheseConditions(eqv,cond_vector4, mu);
-fprintf('APARTAT 4:\n');
+fprintf('PHASE 4:\n');
 disp(eqv4)
 
 %% Integratons
-% dV = sym('dV', 'real');
-% dt = sym('dt', 'real');
-% eq = solve(eqv2(1), Vdot);
-% eq = eq == dV/dt;
-% eq = subs(eq, [D], [1/2*rho*V^2*S*(Cd_0+k*Cl^2)]);
-% LSol = solve(eqv1(3), L); % Warning solucions
-% eq = subs(eq, [Cl], [LSol/(0.5*rho*V^2*S)]);
-% int_temps1 = solve(eq, dt);
-% disp('dt=');
-% pretty(int_temps1)
-% fprintf('Entre V_basica i V_2.\n');
-% temps1 = int(int_temps1, V); temps1 = subs(temps1, dV, 1);
-% temps1 = simplify(expand(temps1));
-% pretty(temps1)
-% disp('~~~~~~~~~~~~~~~~~~~~~~~~');
-
-% dh = sym('dh', 'real');
-% eq = lhs(eq) == -dV/dh*rhs(eqv1(6));
-% eq = subs(eq, [dh/dt], [-rhs(eqv1(6))]);
-% int_altura = solve(eq, dh);
-% disp('dh=')
-% pretty(int_altura);
-% fprintf('Entre V_basica i V_2.\n');
-% clearvars eq
+dV = sym('dV', 'real');
+dt = sym('dt', 'real');
+eq = solve(eqv2(1), Vdot);
+eq = eq == dV/dt;
+eq = subs(eq, [D], [1/2*rho*V^2*S*(Cd_0+k*Cl^2)]);
+LSol = solve(eqv1(3), L); % Warning solucions
+eq = subs(eq, [Cl], [LSol/(0.5*rho*V^2*S)]);
+int_temps1 = solve(eq, dt);
+disp('dt=');
+pretty(int_temps1)
+fprintf('Entre V_basica i V_2.\n');
+temps1 = int(int_temps1, V); temps1 = subs(temps1, dV, 1);
+temps1 = simplify(expand(temps1));
+pretty(temps1)
 
 fprintf('-----------------------\n-----------------------\n-----------------------\n');
-
-%% Trajectory
-plot_trajectory;

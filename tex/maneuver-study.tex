@@ -17,8 +17,9 @@ Figure \ref{fig:paramEvolution} shows how these change in the different phases o
 \vspace{0.5cm}
 
 Note that for $\gamma$ the evolution is perfectly defined, as the increment of said angle needs to be positive in order to increase the flight altitude. Conversely, for $\mu$ the pilot could choose to rotate in the opposite direction thus changing $\mu$ from 0 to $-\pi$ instead - note that $\pi$ and $-\pi$ are equivalent -, and the result would be virtually the same.\\
-Furthermore, in order to describe a perfect semicircle the angular speed $\dot{\gamma}$ needs to remain constant. This results in the necessary condition of gamma's evolution to be a straight slope. For $\mu$, however, the pilot could also perform the roll at non-constant rotating speed without this having an impact on the maneuver performance. This would be reflected as a curve on mu's temporal evolution, instead of a straight line.
+Furthermore, in order to describe a perfect semicircle the angular speed $\dot{\gamma}$ needs to remain constant. This results in the necessary condition of gamma's evolution to be a straight slope. For $\mu$, however, the pilot could also perform the roll at non-constant rotating speed without this having an impact on the maneuver performance. This would be reflected as a curve on mu's temporal evolution, instead of a straight line.\\
 
+All these
 For the following computations, some values will be needed in order to numerically solve the Ordinal Differential Equation systems. The ENAERT T-35 Pillán, a Chilean military small aircraft and its data \cite{jane1969jane} have been taken as references.\\
 
 \begin{center}
@@ -42,7 +43,6 @@ The used information is:
 
 The selected initial speed is of 70 m/s as the third phase of the maneuver requires a few less meters per second in order to be performed safely.
 
-\subsection*{Evolution throughout time}
 For the totality of the maneuver, the fixated parameters are the gas control lever ($\pi$) and the elevator ($\alpha$), which are set as constants at 1.5 kN and 0.3 rad respectively. From the remaining variables, the position coordinates evolution ($\Dot{x}$ and $\Dot{z}$) are always left as dependant in order to be solved by the ODE solver. With the obtained results, the trajectory is plot - see the following section Trajectory analysis, where both of them are studied in moer depth -.
 
 \begin{equation} \label{eq:lift}
@@ -53,9 +53,23 @@ For the totality of the maneuver, the fixated parameters are the gas control lev
 \end{equation}
 
 \subsubsection*{Cruise flight}
+\addcontentsline{toc}{subsection}{Cruise flight}
 For the first and last phases, both cruise flight, the remaining variable (not counting $\Dot{x}$ and $\Dot{z}$) is velocity (V) alone.\\
-As fixed thrust and elevator deflection are imposed, there are virtually no temporal changes affecting velocity. This results in constant speed or cruise flight, and a simple slope regarding the x-axis position. When computing both the lift and drag forces, these must be constant too - see equations \ref{eq:lift} and \ref{eq:drag} -.
+As fixed thrust and elevator deflection are imposed, there are virtually no temporal changes affecting velocity. This results in constant speed or cruise flight, and a simple slope regarding the x-axis position. When computing both the lift and drag forces, these must be constant too - see equations \ref{eq:lift} and \ref{eq:drag} -.\\
 
+Velocity being constant results in both lift and drag being constant too.
+\begin{center}
+	\includegraphics[width=\linewidth]{../matlab/1/liftdrag.jpg}
+	\vspace{0.5cm}
+	\captionof{figure}{Radius dependance on V and $\alpha$t. Own elaboration.}\vspace{0.25cm}
+\end{center}
+
+In regards of the general overview, cruise flight is quite straight forward, as both the speed and vertical position remain constant, and as velocity is linealry dependant on time, the displacement of the aricraft is linear as well.
+\begin{center}
+	\includegraphics[width=\linewidth]{../matlab/1/1traj.jpg}
+	\vspace{0.5cm}
+	\captionof{figure}{Radius dependance on V and $\alpha$t. Own elaboration.}\vspace{0.25cm}
+\end{center}
 
 For the total time, the following integration from the first equation can be done:
 \begin{align*}
@@ -67,6 +81,7 @@ For the total time, the following integration from the first equation can be don
 \end{align*}
 
 \subsubsection*{Half loop}
+\addcontentsline{toc}{subsection}{Half loop}
 In order to work with the half loop part of the maneuver, some preliminary of the trajectory geometry is done.
 The three force configurations during the maneuver correspond to the free body diagrams at stages 1, 2 and 3 (see Figure \ref{fig:immelmann-overview}). \vspace{0.5cm}
 
@@ -170,6 +185,7 @@ As during this phase the angle $\gamma$ must evolve from 0 to $\pi$ rad -for sim
 \end{align*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Roll}
+\addcontentsline{toc}{subsection}{Roll}
 Similarly to the half loop, for this phase a part of the known fixed parameters; gas control lever ($\pi$) and elevator deflection ($\alpha$) more conditioning is needed. In this case, the angle is the roll angle; $\mu$. As previouslt done for $\gamma$, the conditions for $\mu$ are:
 
 \begin{itemize}
@@ -226,6 +242,7 @@ Temporal integration is exactly equal to the cruise phase one, as the roll does 
 Note that this phase of the maneuver is perhaps the most idealised, as a roll is an unbalanced maneuver. Because of the aircraft stability design adverse yaw appears from the very beginning. In a nutshell,  an aircraft performing an aileron roll will actually fly along a slightly helical path, and a very light, positive g force will be maintained.
 
 \subsection*{Trajectory analysis} 
+\addcontentsline{toc}{section}{Trajectory analysis}
 The expected result of the trajectory is portrayed in the following image:
 
 \begin{center}
@@ -243,7 +260,21 @@ We can consider the maneuver coordinates:
 
 From the computational results obtained from ODE solvers, the following plots represent the trajectory:
 \begin{center}
-	\includegraphics[width=\linewidth]{../matlab/trajectory.png}
-	\vspace{0.5cm}
-	\captionof{figure}{Expected trajectory output. Own elaboration.}\vspace{0.25cm}
+	\includegraphics[width=\linewidth]{../matlab/t1.jpg}
+	\vspace{0.25cm}
+	\captionof{figure}{Trajectory output for cruise flight. Own elaboration.}\vspace{0.25cm}
 \end{center}
+
+\begin{center}
+	\includegraphics[width=\linewidth]{../matlab/t2.jpg}
+	\vspace{0.25cm}
+	\captionof{figure}{Trajectory output for the semiloop. Own elaboration.}\vspace{0.25cm}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=\linewidth]{../matlab/t3.jpg}
+	\vspace{0.25cm}
+	\captionof{figure}{Trajectory output for the roll. Own elaboration.}\vspace{0.25cm}
+\end{center}
+
+The obtained results fit perfectly with the expected outuput.
