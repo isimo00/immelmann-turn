@@ -8,7 +8,7 @@ function paramEvolution
 syms gammaEV(t)
 syms muEV(t)
 gammaEV(t) = piecewise(0<t<0.75, 4/3*pi*t, 0.75<t, pi);
-muEV(t) = piecewise(0<t<0.75, 0, 0.75<t, 4*pi*(t-0.75));
+muEV(t) = piecewise(0<t<0.75, pi, 0.75<t, -4*pi*(t-0.75)+pi);
 figure()
 fplot(gammaEV, 'LineWidth',1.5); hold on
 fplot(muEV, 'LineWidth',1.5);

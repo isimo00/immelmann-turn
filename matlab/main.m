@@ -5,7 +5,6 @@
 clear all; close; clc
 %% 
 fontSize = 20;
-Radius
 set(groot,'defaultLineLineWidth',2)
 paramEvolution
 
@@ -73,7 +72,7 @@ fprintf('APARTAT 1:\n');
 disp(eqv1);
 
 % Evolution
-ODEtram1(g, S, rho, m, alpha)
+ODEtram1(g, S, rho, m, alpha);
 
 %% Second phase - semicircle
 cond_vector2 = [Q, 0;       % vuelo simétrico
